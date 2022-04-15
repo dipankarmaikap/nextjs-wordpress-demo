@@ -1,6 +1,7 @@
 import Layout from "~/components/Layout";
 import getPostDetailsBySlug from "~/lib/getPostDetailsBySlug";
 import ImageComponent from "~/components/ImageComponent";
+import parsePostContent from "~/utils/parsePostContent";
 
 const ArticlePage = ({ post }) => {
   const { featuredImage, title, content, slug } = post;
@@ -32,10 +33,9 @@ const ArticlePage = ({ post }) => {
           <h2 className="text-4xl font-bold max-w-screen-md mx-auto ">
             {title}
           </h2>
-          <div
-            className="max-w-xl mx-auto mt-8 prose  prose-a:text-indigo-600 hover:prose-a:text-indigo-500"
-            dangerouslySetInnerHTML={{ __html: content }}
-          />
+          <div className="max-w-xl mx-auto mt-8 prose  prose-a:text-indigo-600 hover:prose-a:text-indigo-500">
+            {parsePostContent(content)}
+          </div>
         </main>
       </article>
     </Layout>

@@ -4,16 +4,19 @@ export default function ImageComponent({ src, alt, blurDataURL, ...props }) {
   const [isLoading, setLoading] = useState(true);
 
   return (
-    <div className="w-full aspect-[4/2] md:aspect-[6/3] bg-gray-200 overflow-hidden relative">
+    <>
       {blurDataURL ? (
-        <Image
-          src={src}
-          alt={alt ?? "Picture of the author"}
-          blurDataURL={blurDataURL}
-          {...props}
-        />
+        <div className="w-full aspect-[4/2] md:aspect-[6/3] bg-gray-200 overflow-hidden relative">
+          <Image
+            src={src}
+            alt={alt ?? "Picture of the author"}
+            blurDataURL={blurDataURL}
+            {...props}
+          />
+        </div>
       ) : (
         <Image
+          {...props}
           src={src}
           alt={alt ?? "Picture of the author"}
           className={cn(
@@ -25,7 +28,7 @@ export default function ImageComponent({ src, alt, blurDataURL, ...props }) {
           onLoadingComplete={() => setLoading(false)}
         />
       )}
-    </div>
+    </>
   );
 }
 function cn(...classes) {
