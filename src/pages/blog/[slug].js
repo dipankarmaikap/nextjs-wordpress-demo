@@ -4,10 +4,7 @@ import ImageComponent from "~/components/ImageComponent";
 import parsePostContent from "~/utils/parsePostContent";
 
 const ArticlePage = ({ post }) => {
-  const { featuredImage, title, content, slug } = post;
-
-  console.log(post);
-
+  const { featuredImage, title, content } = post;
   return (
     <Layout>
       <article className="post">

@@ -8,10 +8,8 @@ export default function parsePostContent(content) {
   const options = {
     replace: ({ name, attribs }) => {
       if (name === "img") {
-        const { src, width, height, alt } = attribs;
-        return (
-          <ImageComponent width={width} height={height} src={src} alt={alt} />
-        );
+        const { src, alt } = attribs;
+        return <ImageComponent layout="fill" src={src} alt={alt} />;
       }
     },
   };
