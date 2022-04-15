@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import Image from "next/image";
 export default function ImageComponent({ src, alt, blurDataURL, ...props }) {
   const [isLoading, setLoading] = useState(true);
