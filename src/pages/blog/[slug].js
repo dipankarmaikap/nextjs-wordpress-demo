@@ -2,9 +2,10 @@ import Layout from "~/components/Layout";
 import getPostDetailsBySlug from "~/lib/getPostDetailsBySlug";
 import ImageComponent from "~/components/ImageComponent";
 import parsePostContent from "~/utils/parsePostContent";
+import PostAuthor from "~/components/PostAuthor";
 
 const ArticlePage = ({ post }) => {
-  const { featuredImage, title, content } = post;
+  const { featuredImage, title, content, author } = post;
   return (
     <Layout>
       <article className="post">
@@ -27,9 +28,12 @@ const ArticlePage = ({ post }) => {
           )}
         </header>
         <main className="my-4 md:my-12">
-          <h2 className="text-4xl font-bold max-w-screen-md mx-auto ">
+          <h2 className="text-4xl font-bold max-w-screen-sm mx-auto ">
             {title}
           </h2>
+          <div className="max-w-screen-sm mx-auto ">
+            <PostAuthor author={author.node} />
+          </div>
           <div className="max-w-xl mx-auto mt-8 prose  prose-a:text-indigo-600 hover:prose-a:text-indigo-500">
             {parsePostContent(content)}
           </div>

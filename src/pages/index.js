@@ -5,7 +5,7 @@ import BlogCard from "~/components/BlogCard";
 const Home = ({ posts }) => {
   return (
     <Layout isHome={true}>
-      <div className="posts grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+      <div className="posts grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         {!!posts.length &&
           posts.map((post) => <BlogCard key={post?.id} post={post} />)}
       </div>
