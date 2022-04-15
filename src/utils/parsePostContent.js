@@ -9,7 +9,9 @@ export default function parsePostContent(content) {
     replace: ({ name, attribs }) => {
       if (name === "img") {
         const { src, alt } = attribs;
-        return <ImageComponent layout="fill" src={src} alt={alt} />;
+        return (
+          <ImageComponent layout="fill" objectFit="cover" src={src} alt={alt} />
+        );
       }
     },
   };
