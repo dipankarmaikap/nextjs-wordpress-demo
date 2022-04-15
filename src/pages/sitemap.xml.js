@@ -5,15 +5,17 @@ export default function SitemapPage() {
 }
 function GenerateSiteMap(details) {
   const { totalCategories, totalPublishedPages } = details;
-  const { totalPublishedPosts, totalTags } = details;
+  const { totalPublishedPosts, totalTags, totalUsers } = details;
   const categoryPaths = getSitemapPaths(totalCategories, "category_sitemap");
-  const tagPaths = getSitemapPaths(totalTags, "tags_sitemap");
+  const tagPaths = getSitemapPaths(totalTags, "tag_sitemap");
   const postPaths = getSitemapPaths(totalPublishedPosts, "post_sitemap");
   const pagePaths = getSitemapPaths(totalPublishedPages, "page_sitemap");
+  const authorPaths = getSitemapPaths(totalUsers, "author_sitemap");
 
   return `
     <sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
         ${pagePaths}
+        ${authorPaths}
         ${categoryPaths}
         ${tagPaths}
         ${postPaths}

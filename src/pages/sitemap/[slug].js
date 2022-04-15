@@ -1,6 +1,5 @@
 import getSitemapPageUrls from "~/lib/getSitemapPageUrls";
-import generateSitemapPaths from "../../utils/generateSitemapPaths";
-
+import generateSitemapPaths from "~/utils/generateSitemapPaths";
 export default function SitemapTagPage() {
   return null;
 }
@@ -23,7 +22,7 @@ export async function getServerSideProps({ res, params: { slug } }) {
   let type = slugArray[0];
   let pageNo = slugArray[1]?.match(/(\d+)/)[0] ?? null;
   let page = pageNo ? parseInt(pageNo) : null;
-  let possibleTypes = ["category", "tags", "post", "page"];
+  let possibleTypes = ["category", "tag", "post", "page", "author"];
   if (!page || !possibleTypes.includes(type)) {
     return {
       notFound: true,
