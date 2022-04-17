@@ -3,16 +3,6 @@ import generateSitemapPaths from "~/utils/generateSitemapPaths";
 export default function SitemapTagPage() {
   return null;
 }
-function GenerateSiteMap(pageUrls) {
-  const paths = generateSitemapPaths(pageUrls);
-  return `
-  <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
-  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-    ${paths}
-  </urlset>
-  `;
-}
 export async function getServerSideProps({ res, params: { slug } }) {
   let isXml = slug.endsWith(".xml");
   if (!isXml) {
@@ -36,12 +26,18 @@ export async function getServerSideProps({ res, params: { slug } }) {
       notFound: true,
     };
   }
+  let sitemap = `<?xml version="1.0" encoding="UTF-8"?>
+  <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
+  xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+    ${generateSitemapPaths(pageUrls)}
+  </urlset>`;
   res.setHeader("Content-Type", "text/xml; charset=utf-8");
   res.setHeader(
     "Cache-Control",
     "public, s-maxage=600, stale-while-revalidate=600"
   );
-  res.write(GenerateSiteMap(pageUrls));
+  res.write(sitemap);
   res.end();
   return { props: {} };
 }

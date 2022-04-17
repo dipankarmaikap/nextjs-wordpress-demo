@@ -3,7 +3,9 @@ import getTotalCounts from "~/lib/getTotalCounts";
 export default function SitemapPage() {
   return null;
 }
-function GenerateSiteMap(details) {
+
+export async function getServerSideProps({ res }) {
+  const details = await getTotalCounts();
   const { totalCategories, totalPublishedPages } = details;
   const { totalPublishedPosts, totalTags, totalUsers } = details;
   const categoryPaths = getSitemapPaths(totalCategories, "category_sitemap");
@@ -12,26 +14,26 @@ function GenerateSiteMap(details) {
   const pagePaths = getSitemapPaths(totalPublishedPages, "page_sitemap");
   const authorPaths = getSitemapPaths(totalUsers, "author_sitemap");
 
-  return `
+  let sitemapIndex = `<?xml version='1.0' encoding='UTF-8'?>
   <sitemapindex xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
            xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/siteindex.xsd"
            xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-        ${pagePaths}
-        ${authorPaths}
-        ${categoryPaths}
-        ${tagPaths}
-        ${postPaths}
-    </sitemapindex>
-  `;
-}
-export async function getServerSideProps({ res }) {
-  const details = await getTotalCounts();
+     <sitemap>
+     ${pagePaths}
+     ${authorPaths}
+     ${categoryPaths}
+     ${tagPaths}
+     ${postPaths}
+     </sitemap>
+  </sitemapindex>`;
+
   res.setHeader("Content-Type", "text/xml; charset=utf-8");
   res.setHeader(
     "Cache-Control",
     "public, s-maxage=600, stale-while-revalidate=600"
   );
-  res.write(GenerateSiteMap(details));
+
+  res.write(sitemapIndex);
   res.end();
   return { props: {} };
 }
