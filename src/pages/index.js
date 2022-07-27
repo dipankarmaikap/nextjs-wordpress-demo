@@ -3,6 +3,7 @@ import Layout from "~/components/Layout";
 import BlogCard from "~/components/BlogCard";
 
 const Home = ({ posts }) => {
+  console.log(posts);
   return (
     <Layout isHome={true}>
       <div className="posts grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
