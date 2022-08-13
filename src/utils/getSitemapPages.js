@@ -1,16 +1,17 @@
-export default function getSitemapPages(count, path) {
+import { frontendUrl, sitemapPerPage } from "./variables";
+
+export default function getSitemapPages(item) {
   const items = [];
-  let sitemapPerPage = process.env.NEXT_PUBLIC_ITEM_PER_SITEMAP; //1000
-  for (let i = 1; i <= Math.ceil(count / sitemapPerPage); i++) {
-    let url = `${process.env.NEXT_PUBLIC_FRONTEND_URL}/sitemap/${path}${i}.xml`;
+  for (let i = 1; i <= Math.ceil(item.total / sitemapPerPage); i++) {
+    let url = `${frontendUrl}/sitemap/${item.name}_sitemap${i}.xml`;
     items.push(
       ` 
-      <sitemap>
-         <loc>
-            ${url}
-        </loc>
-    </sitemap>
-    `
+        <sitemap>
+           <loc>
+              ${url}
+          </loc>
+      </sitemap>
+      `
     );
   }
   return items.join("");
