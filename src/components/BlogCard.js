@@ -3,7 +3,7 @@ import ImageComponent from "./ImageComponent";
 import PostAuthor from "./PostAuthor";
 
 export default function BlogCard({ post }) {
-  const { featuredImage, title, excerpt, slug, author } = post;
+  const { featuredImage, title, excerpt, uri, author } = post;
   return (
     <>
       <article className="post bg-white shadow-lg">
@@ -28,7 +28,7 @@ export default function BlogCard({ post }) {
             className="line-clamp-3 mb-3"
             dangerouslySetInnerHTML={{ __html: excerpt }}
           />
-          <Link href={`/blog/${slug}`}>
+          <Link href={uri}>
             <a className="underline hover:text-indigo-600">Read full article</a>
           </Link>
         </div>
